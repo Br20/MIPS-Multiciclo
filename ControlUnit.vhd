@@ -135,7 +135,7 @@ begin
         IRWrite <= '0';
         MemToReg <= '1'; -- Elijo el dato que viene de la memoria
 		next_state <= "0000";
-	elsif state = "0101" then
+	elsif state = "0101" then -- es un SW
         PCSource <= '0';
         TargetWrite <= '0'; 
         AluOp <= "00";
@@ -151,7 +151,7 @@ begin
         IRWrite <= '0';
         MemToReg <= '0';
 		next_state <= "0000";
-	elsif state = "0110" then 
+	elsif state = "0110" then -- Es un R-type 1
         PCSource <= '0';
         TargetWrite <= '0';
         AluOp <= "10";
