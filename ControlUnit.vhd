@@ -50,25 +50,25 @@ begin
     if state = "0000" then
         PCSource <= '0';
         TargetWrite <= '0';
-        AluOp <= "00";
-        AluSelA <= '1';
-        AluSelB <= "00";
+        AluOp <= "01"; --Para realizar la suma PC + 4
+        AluSelA <= '0'; --Para seleccionar la entrada del PC
+        AluSelB <= "01"; -- para seleccionar la entrada del 4
         RegWrite <= '0';
         RegDst <= '0';
         PCWrite <= '0';
         PCWriteCond <= '0';
-        IorD <= '0';
-        MemRead <= '1';
+        IorD <= '0'; --Para que seleccione el de arriba
+        MemRead <= '1'; --Para poder leer la memoria
         MemWrite <= '0';
-        IRWrite <= '1';
+        IRWrite <= '1'; --para poder escribir en IR
         MemToReg <= '0';
 		next_state <= "0001";
 	elsif state = "0001" then
         PCSource <= '1';
-        TargetWrite <= '1';
-        AluOp <= "00";
-        AluSelA <= '0';
-        AluSelB <= "11";
+        TargetWrite <= '1'; --para guardar la dir de salto (si salta)
+        AluOp <= "00"; -- para que se haga la suma
+        AluSelA <= '0'; -- para seleccionar la entrada del PC
+        AluSelB <= "11"; -- para seleccionar Sign_ext(Instr[15..0] << 2)
         RegWrite <= '0';
         RegDst <= '0';
         PCWrite <= '0';
@@ -84,12 +84,12 @@ begin
             when "000000" => next_state <= "0110"; -- Es R-Type
             when "000100" => next_state <= "1000"; -- Es un beq
         end case;
-    elsif state = "0010" then
+    elsif state = "0010" then -- LW o SW 
         PCSource <= '0';
         TargetWrite <= '0';
-        AluOp <= "00";
-        AluSelA <= '1';
-        AluSelB <= "10";
+        AluOp <= "00"; -- para que se haga la suma
+        AluSelA <= '1'; --para seleccionar A (Reg[instr[25..21])
+        AluSelB <= "10"; -- para seleccionar sign_ext(instr[15..0])
         RegWrite <= '0';
         RegDst <= '0';
         PCWrite <= '0';
@@ -103,7 +103,7 @@ begin
             when "100011"  => next_state <= "0011"; -- Es un LW
             when "101011"  => next_state <= "0101"; -- Es un SW
 		end case;
-	elsif state = "0011" then
+	elsif state = "0011" then --LW 1
         PCSource <= '0';
         TargetWrite <= '0';
         AluOp <= "00";
@@ -119,7 +119,7 @@ begin
         IRWrite <= '0';
         MemToReg <= '0';
 		next_state <= "0100";
-	elsif state = "0100" then
+	elsif state = "0100" then --LW 2
         PCSource <= '0';
         TargetWrite <= '0'; 
         AluOp <= "00";
