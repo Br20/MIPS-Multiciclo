@@ -2,7 +2,7 @@
 --
 -- Title       : Multicycle_MIPS_TB
 -- Design      : Test Bench for Multicycle MIPS
--- Author      : L. Leiva
+-- Author      : yo papa!
 -- Company     : UNICEN
 --
 --

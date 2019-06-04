@@ -18,8 +18,8 @@ port(
 	Addr      : out std_logic_vector(31 downto 0);
 	RdStb     : out std_logic;
 	WrStb     : out std_logic;
-	DataOut   : out std_logic_vector(31 downto 0);
-	DataIn    : in  std_logic_vector(31 downto 0)
+	DataOut   : out std_logic_vector(31 downto 0); -- DataIn en la memoria
+	DataIn    : in  std_logic_vector(31 downto 0) -- DataOut en la memoria
 );
 end Multicycle_MIPS; 
 
@@ -85,7 +85,9 @@ signal data1_rd: STD_LOGIC_VECTOR (31 downto 0);
 signal data2_rd: STD_LOGIC_VECTOR (31 downto 0);
 
 
--- ENTRADAS y SALIDAS ALU
+
+-- ENTRADAS Y SALIDAS ALU
+
 Component ALU is
 Port(
 	a,b: IN std_logic_vector (31 downto 0);
@@ -110,33 +112,13 @@ Port(
 	clk: IN std_logic;
 	reset: IN std_logic;
 	ce: IN std_logic;
-	q: OUT std_logic_vector ( 32 downto 0)
+	q: OUT std_logic_vector ( 31 downto 0)
 );
 end Component;
 
 -- signal d: std_logic_vector (31 downto 0); -- MemData
 -- signal ce: std_logic; --IRWrite
-signal instr: std_logic_vector ( 32 downto 0);
-
-
--- ENTRADAS Y SALIDAS DE LA MEMORIA
-Component memory is
-Port(
-    Addr : in std_logic_vector(31 downto 0);
-    DataIn : in std_logic_vector(31 downto 0);
-    RdStb : in std_logic ;
-    WrStb : in std_logic ;
-    Clk : in std_logic ;						  
-    DataOut : out std_logic_vector(31 downto 0)
-);
-End Component;
-
-signal Mem_Address: std_logic_vector(31 downto 0); -- entrada
-signal MemData: std_logic_vector (31 downto 0); -- salida
--- DataIn = Data2_rd (salida BR)
--- RdStb = MemRead
--- WrStb = MemWrite
--- Clk = Clk
+signal instr: std_logic_vector ( 31 downto 0);
 
 -- ENTRADAS Y SALIDAS DE LA UNIDAD DE CONTROL
 
@@ -168,6 +150,9 @@ End Component;
 
 BEGIN
 
+
+
+
 --Instancicion de la ALU
 ALU_Inst: ALU
 Port map(   
@@ -195,7 +180,7 @@ Port map(
 -- Instanciacion de un registro (Registro de Instruccion)
 reg_inst: Reg
 Port map(
-	d => MemData,
+	d => DataIn,
 	clk => Clk,
 	reset => Reset,
 	ce => IRWrite,
@@ -213,16 +198,13 @@ Port map(
 	q => jump_addr
 );
 
--- Instanciacion de la memoria
-mem: memory
-Port map(
-    Addr => Mem_Address,
-    DataOut => MemData,
-    DataIn => data2_rd,
-    RdStb => MemRead,
-    WrStb => MemWrite,
-    Clk => Clk
-);
+-- Instanciacion de la memoria ANTIGUO!!
+--mem: memory
+--Port map(
+--    Addr => Mem_Address,
+--    DataOut => MemData,
+--    DataIn => data2_rd,
+--);
 
 --Instanciacion de la unidad de control
 cu: ControlUnit
@@ -240,20 +222,22 @@ Port map(
     PCWrite => PCWrite,
     PCWriteCond => PCWriteCond,
     IorD => IorD,
-    MemRead => MemRead,
-    memWrite => MemWrite,
+    --MemRead => MemRead -- esto estab antes,
+    MemRead => RdStb, -- esto es lo nuevo!!
+    --memWrite => MemWrite,-- esto estab antes
+    MemWrite => WrStb, --esto es lo nuevo!!
     IRWrite => IRWrite,
-    MemToReg => MemToReg
+    MemToReg => MemToReg 
+    
 );
 
--- PC (se le suma cuatro siempre y cuando la escritura pase de 0 a 1)
+-- logica extra de control PC
 PC_enable <= (PCWriteCond and zero) or PCWrite;
-
---PC_Out <= PC_In + x"00000004" when rising_edge(PC_enable);
 
 
 -- Entrada de direccion de memoria (Mux)
-Mem_Address <= PC_Out when IorD = '0' else Alu_Result when IorD = '1';
+--Mem_Address <= PC_Out when IorD = '0' else Alu_Result when IorD = '1'; -- Esto estaba antes
+Addr <= PC_Out when IorD = '0' else Alu_Result when IorD = '1'; -- Esto es lo nuevo!!
 
 -- Entradas al banco de registros
 reg1_rd <= instr(25 downto 21);
@@ -261,7 +245,7 @@ reg2_rd <= instr(20 downto 16);
 reg_wr <= instr(20 downto 16) when RegDst = '0' else 
           instr(15 downto 11) when RegDst = '1';
 data_wr <= ALU_Result when MemToReg = '0' else 
-           MemData when MemToReg = '1';
+           DataIn when MemToReg = '1';
 
 
 
@@ -272,7 +256,7 @@ a <= PC_Out when ALUSelA = '0' else
 sign_ext <= x"0000" & instr(15 downto 0) when instr(15) = '0' else
             x"1111" & instr(15 downto 0) when instr(15) = '1';
 b <= data2_rd when ALUSelB = "00" else 
-     "0100" when ALUSelB = "01" else
+     x"00000004" when ALUSelB = "01" else
      sign_ext when ALUSelB = "10" else
      sign_ext(29 downto 0) & "00" when ALUSelB = "11"; 
      
@@ -290,6 +274,10 @@ end process;
 -- Mux de entrada al PC
 PC_In <= jump_addr when TargetWrite = '1' else 
          ALU_Result when TargetWrite = '1';
+
+
+-- Parche de conexion banco - memoria
+DataOut <= data2_rd;
 
 
 end Multicycle_MIPS_arch;
