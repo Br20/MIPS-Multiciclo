@@ -8,7 +8,7 @@ PORT(
 	clk: IN std_logic;
 	reset: IN std_logic;
 	ce: IN std_logic;
-	q: OUT std_logic_vector ( 32 downto 0)
+	q: OUT std_logic_vector ( 31 downto 0)
 );
 END Reg;
 
