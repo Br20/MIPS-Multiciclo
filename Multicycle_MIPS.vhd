@@ -1,12 +1,4 @@
----------------------------------------------------------------------------------------------------
---
--- Title       : Multicycle_MIPS.vhd
--- Design      : Empty design file for multicycle MIPS
--- Author      : Yo papá
--- Company     : UNICEN
---
---
----------------------------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_UNSIGNED.all;

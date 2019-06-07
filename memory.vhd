@@ -1,12 +1,3 @@
----------------------------------------------------------------------------------------------------
---
--- Title       : ControlUnit.vhd
--- Design      : Memory Description for MIPS Simulation
--- Author      : L. Pantaleone, M. Vazquez, L. Leiva
--- Company     : UNICEN
---
---
----------------------------------------------------------------------------------------------------
 
 library STD;
 use STD.textio.all;

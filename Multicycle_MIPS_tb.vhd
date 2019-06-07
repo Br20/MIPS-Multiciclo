@@ -1,12 +1,3 @@
----------------------------------------------------------------------------------------------------
---
--- Title       : Multicycle_MIPS_TB
--- Design      : Test Bench for Multicycle MIPS
--- Author      : yo papa!
--- Company     : UNICEN
---
---
----------------------------------------------------------------------------------------------------
 
 library ieee;
 use ieee.std_logic_1164.all; 
@@ -22,9 +13,8 @@ architecture MultiCycle_MIPS_tb_arch  of MultiCycle_MIPS_tb is
 	-- Component declaration of the tested unit
 	component MultiCycle_MIPS
    port(
-   	  Clk         : in  std_logic;
-	   Reset       : in  std_logic;
-      
+   	   Clk       : in  std_logic;
+	   Reset     : in  std_logic;
 	   Addr      : out std_logic_vector(31 downto 0);
 	   RdStb     : out std_logic;
 	   WrStb     : out std_logic;
@@ -79,8 +69,8 @@ begin
 
 	Instruction_Mem_inst : memory
 	generic map (
-	  C_ELF_FILENAME_LOW     => "program1",
-	  C_ELF_FILENAME_HIGH     => "data",
+	  C_ELF_FILENAME_LOW     => "/home/brian/Escritorio/proyecto/program1",
+	  C_ELF_FILENAME_HIGH     => "/home/brian/Escritorio/proyecto/data",
       C_MEM_SIZE         => 2048,
       C_MEM_HIGH_OFFSET => 1024
    )
