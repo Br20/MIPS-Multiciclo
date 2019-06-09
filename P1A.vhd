@@ -19,15 +19,16 @@ BEGIN
 
 	process(clk,d,reset,ce)
 	begin
-		if rising_edge(clk) then
-			if (reset = '1') then
-				valor <= (others => '0');
-			elsif (ce = '0')then
-				valor <= (d);
-			end if;
+		if (reset = '1') then
+		  valor <= (others => '0');
+		elsif rising_edge(clk) then
+            if (ce = '1')then
+                    valor <= (d);   
+            end if;
 		end if;
 		q <= valor;
 	end process;
+	
 END PRACTICA;
 		
 		

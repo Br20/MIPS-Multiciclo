@@ -223,6 +223,22 @@ Port map(
     
 );
 
+
+
+process (reset,clk,PCSource)
+begin
+    if (reset = '1') then
+        PC_In <= x"00000000";
+    elsif PCSource = '1' then 
+        PC_In <= jump_addr;
+    else 
+        PC_In <= ALU_Result;
+    end if;
+    
+end process;
+
+PC_Out <= PC_In;
+
 -- logica extra de control PC
 PC_enable <= (PCWriteCond and zero) or PCWrite;
 
@@ -263,9 +279,12 @@ begin
     end if;
 end process;
 
+
+
+
 -- Mux de entrada al PC
-PC_In <= jump_addr when TargetWrite = '1' else 
-         ALU_Result when TargetWrite = '1';
+-- PC_In <= jump_addr when TargetWrite = '1' else 
+--         ALU_Result when TargetWrite = '0';
 
 
 -- Parche de conexion banco - memoria
