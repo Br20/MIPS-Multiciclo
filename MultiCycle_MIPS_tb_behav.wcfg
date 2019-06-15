@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="MultiCycle_MIPS_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="MultiCycle_MIPS_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="6503664000fs"></ZoomStartTime>
+      <ZoomEndTime time="6904664001fs"></ZoomEndTime>
+      <Cursor1Time time="6743892000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="151"></NameColumnWidth>
+      <ValueColumnWidth column_width="90"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="43" />
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/Clk">
+      <obj_property name="ElementShortName">Clk</obj_property>
+      <obj_property name="ObjectShortName">Clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/Reset">
+      <obj_property name="ElementShortName">Reset</obj_property>
+      <obj_property name="ObjectShortName">Reset</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider240" type="divider">
+      <obj_property name="label">ALU </obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#00FFFF</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/ALU_Inst/A">
+      <obj_property name="ElementShortName">A[31:0]</obj_property>
+      <obj_property name="ObjectShortName">A[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/ALU_Inst/B">
+      <obj_property name="ElementShortName">B[31:0]</obj_property>
+      <obj_property name="ObjectShortName">B[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/ALU_Inst/result">
+      <obj_property name="ElementShortName">result[31:0]</obj_property>
+      <obj_property name="ObjectShortName">result[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/ALU_Inst/control">
+      <obj_property name="ElementShortName">control[2:0]</obj_property>
+      <obj_property name="ObjectShortName">control[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider271" type="divider">
+      <obj_property name="label">MEMORIA</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#00FF00</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/DataIn">
+      <obj_property name="ElementShortName">DataIn[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DataIn[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/DataOut">
+      <obj_property name="ElementShortName">DataOut[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DataOut[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/RdStb">
+      <obj_property name="ElementShortName">RdStb</obj_property>
+      <obj_property name="ObjectShortName">RdStb</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/WrStb">
+      <obj_property name="ElementShortName">WrStb</obj_property>
+      <obj_property name="ObjectShortName">WrStb</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/Addr">
+      <obj_property name="ElementShortName">Addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">Addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider272" type="divider">
+      <obj_property name="label">PC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#FAAFBE</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/PC_Enable">
+      <obj_property name="ElementShortName">PC_Enable</obj_property>
+      <obj_property name="ObjectShortName">PC_Enable</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/PC_In">
+      <obj_property name="ElementShortName">PC_In[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_In[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/PC_Out">
+      <obj_property name="ElementShortName">PC_Out[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_Out[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider274" type="divider">
+      <obj_property name="label">REG INSTRUCCION</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#800080</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/reg_inst/d">
+      <obj_property name="ElementShortName">d[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/reg_inst/q">
+      <obj_property name="ElementShortName">q[31:0]</obj_property>
+      <obj_property name="ObjectShortName">q[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider273" type="divider">
+      <obj_property name="label">BANCO</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#800000</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/bank/registros">
+      <obj_property name="ElementShortName">registros[0:31][31:0]</obj_property>
+      <obj_property name="ObjectShortName">registros[0:31][31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider275" type="divider">
+      <obj_property name="label">REG TARGET</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#FFD700</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/target/d">
+      <obj_property name="ElementShortName">d[31:0]</obj_property>
+      <obj_property name="ObjectShortName">d[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/target/q">
+      <obj_property name="ElementShortName">q[31:0]</obj_property>
+      <obj_property name="ObjectShortName">q[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider276" type="divider">
+      <obj_property name="label">CONTROL</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="BkColor">#808000</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/PCSource">
+      <obj_property name="ElementShortName">PCSource</obj_property>
+      <obj_property name="ObjectShortName">PCSource</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/cu/OpCode">
+      <obj_property name="ElementShortName">OpCode[5:0]</obj_property>
+      <obj_property name="ObjectShortName">OpCode[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/TargetWrite">
+      <obj_property name="ElementShortName">TargetWrite</obj_property>
+      <obj_property name="ObjectShortName">TargetWrite</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/cu/AluOp">
+      <obj_property name="ElementShortName">AluOp[1:0]</obj_property>
+      <obj_property name="ObjectShortName">AluOp[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/AluSelA">
+      <obj_property name="ElementShortName">AluSelA</obj_property>
+      <obj_property name="ObjectShortName">AluSelA</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/cu/AluSelB">
+      <obj_property name="ElementShortName">AluSelB[1:0]</obj_property>
+      <obj_property name="ObjectShortName">AluSelB[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/RegWrite">
+      <obj_property name="ElementShortName">RegWrite</obj_property>
+      <obj_property name="ObjectShortName">RegWrite</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/RegDst">
+      <obj_property name="ElementShortName">RegDst</obj_property>
+      <obj_property name="ObjectShortName">RegDst</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/PCWrite">
+      <obj_property name="ElementShortName">PCWrite</obj_property>
+      <obj_property name="ObjectShortName">PCWrite</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/PCWriteCond">
+      <obj_property name="ElementShortName">PCWriteCond</obj_property>
+      <obj_property name="ObjectShortName">PCWriteCond</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/IorD">
+      <obj_property name="ElementShortName">IorD</obj_property>
+      <obj_property name="ObjectShortName">IorD</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/MemRead">
+      <obj_property name="ElementShortName">MemRead</obj_property>
+      <obj_property name="ObjectShortName">MemRead</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/MemWrite">
+      <obj_property name="ElementShortName">MemWrite</obj_property>
+      <obj_property name="ObjectShortName">MemWrite</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/IRWrite">
+      <obj_property name="ElementShortName">IRWrite</obj_property>
+      <obj_property name="ObjectShortName">IRWrite</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/MultiCycle_MIPS_tb/UUT/cu/MemToReg">
+      <obj_property name="ElementShortName">MemToReg</obj_property>
+      <obj_property name="ObjectShortName">MemToReg</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/cu/state">
+      <obj_property name="ElementShortName">state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">state[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/MultiCycle_MIPS_tb/UUT/cu/next_state">
+      <obj_property name="ElementShortName">next_state[3:0]</obj_property>
+      <obj_property name="ObjectShortName">next_state[3:0]</obj_property>
+   </wvobject>
+</wave_config>

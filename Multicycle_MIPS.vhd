@@ -18,6 +18,7 @@ end Multicycle_MIPS;
 architecture Multicycle_MIPS_arch of Multicycle_MIPS is 
 
 
+
 signal sign_ext: std_logic_vector (31 downto 0); -- senal para la extension de signo
 signal jump_addr: std_logic_vector (31 downto 0); -- senal de direccion de salto
 
@@ -50,6 +51,7 @@ signal ALUSelB: STD_LOGIC_VECTOR (1 downto 0);
 signal RegWrite: STD_LOGIC;
 signal RegDst: STD_LOGIC;
 
+constant espera  : time := 500 ns;
 --COMPONENTES
 
 -- ENTRADAS Y SALIDAS BANCO DE REGISTROS
@@ -75,6 +77,7 @@ signal reg2_rd: STD_LOGIC_VECTOR (4 downto 0);
 signal data_wr: STD_LOGIC_VECTOR (31 downto 0);
 signal data1_rd: STD_LOGIC_VECTOR (31 downto 0); 
 signal data2_rd: STD_LOGIC_VECTOR (31 downto 0);
+
 
 
 
@@ -144,7 +147,6 @@ BEGIN
 
 
 
-
 --Instancicion de la ALU
 ALU_Inst: ALU
 Port map(   
@@ -190,13 +192,7 @@ Port map(
 	q => jump_addr
 );
 
--- Instanciacion de la memoria ANTIGUO!!
---mem: memory
---Port map(
---    Addr => Mem_Address,
---    DataOut => MemData,
---    DataIn => data2_rd,
---);
+
 
 --Instanciacion de la unidad de control
 cu: ControlUnit
@@ -214,10 +210,8 @@ Port map(
     PCWrite => PCWrite,
     PCWriteCond => PCWriteCond,
     IorD => IorD,
-    --MemRead => MemRead -- esto estab antes,
-    MemRead => RdStb, -- esto es lo nuevo!!
-    --memWrite => MemWrite,-- esto estab antes
-    MemWrite => WrStb, --esto es lo nuevo!!
+    MemRead => RdStb,
+    MemWrite => WrStb,
     IRWrite => IRWrite,
     MemToReg => MemToReg 
     
@@ -225,17 +219,21 @@ Port map(
 
 
 
-process (reset,clk,PCSource)
+process (reset,PCSource,PC_enable, Clk)
 begin
     if (reset = '1') then
         PC_In <= x"00000000";
-    elsif PCSource = '1' then 
-        PC_In <= jump_addr;
-    else 
-        PC_In <= ALU_Result;
+    elsif PC_enable = '1' then
+        if PCSource = '1' then 
+            PC_In <= jump_addr;
+        else
+            if (falling_edge(Clk)) then 
+                PC_In <= ALU_Result;
+            end if;
+        end if;
     end if;
-    
 end process;
+
 
 PC_Out <= PC_In;
 
@@ -271,11 +269,16 @@ b <= data2_rd when ALUSelB = "00" else
 -- ALU Control (no me gusta mucho este, tendria que cambiarlo)
 alu_control: process(instr(5 downto 0), aluOp)
 begin
-    if aluOp = "00" then control <= "010";
-        elsif aluOp = "01" then control <= "110";
-            elsif aluOp = "10" and instr(5 downto 0) = "100100" then control <= "000";
-            elsif aluOp = "10" and instr(5 downto 0) = "100101" then control <= "001";
-            elsif aluOp = "10" and instr(5 downto 0) = "101010" then control <= "111";
+    if aluOp = "00" then 
+        control <= "010";
+    elsif aluOp = "01" then 
+        control <= "110";
+    elsif ((aluOp = "10") and (instr(5 downto 0) = "100100")) then 
+        control <= "000";
+    elsif ((aluOp = "10") and (instr(5 downto 0) = "100101")) then 
+        control <= "001";
+    elsif ((aluOp = "10") and (instr(5 downto 0) = "101010")) then 
+        control <= "111";
     end if;
 end process;
 
