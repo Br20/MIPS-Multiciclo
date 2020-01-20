@@ -69,8 +69,8 @@ begin
 
 	Instruction_Mem_inst : memory
 	generic map (
-	  C_ELF_FILENAME_LOW     => "/home/brian/Escritorio/proyecto/program1",
-	  C_ELF_FILENAME_HIGH     => "/home/brian/Escritorio/proyecto/data",
+	  C_ELF_FILENAME_LOW     => "C:/Users/Usuario/Desktop/BBBBBBBBBBBBBBBBBBBBB/MIPS-Multicycle-master/program1",
+	  C_ELF_FILENAME_HIGH     => "C:/Users/Usuario/Desktop/BBBBBBBBBBBBBBBBBBBBB/MIPS-Multicycle-master/data",
       C_MEM_SIZE         => 2048,
       C_MEM_HIGH_OFFSET => 1024
    )

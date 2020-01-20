@@ -51,7 +51,6 @@ signal ALUSelB: STD_LOGIC_VECTOR (1 downto 0);
 signal RegWrite: STD_LOGIC;
 signal RegDst: STD_LOGIC;
 
-constant espera  : time := 500 ns;
 --COMPONENTES
 
 -- ENTRADAS Y SALIDAS BANCO DE REGISTROS
@@ -111,8 +110,7 @@ Port(
 );
 end Component;
 
--- signal d: std_logic_vector (31 downto 0); -- MemData
--- signal ce: std_logic; --IRWrite
+
 signal instr: std_logic_vector ( 31 downto 0);
 
 -- ENTRADAS Y SALIDAS DE LA UNIDAD DE CONTROL
@@ -242,8 +240,7 @@ PC_enable <= (PCWriteCond and zero) or PCWrite;
 
 
 -- Entrada de direccion de memoria (Mux)
---Mem_Address <= PC_Out when IorD = '0' else Alu_Result when IorD = '1'; -- Esto estaba antes
-Addr <= PC_Out when IorD = '0' else Alu_Result when IorD = '1'; -- Esto es lo nuevo!!
+Addr <= PC_Out when IorD = '0' else Alu_Result when IorD = '1';
 
 -- Entradas al banco de registros
 reg1_rd <= instr(25 downto 21);
@@ -266,12 +263,12 @@ b <= data2_rd when ALUSelB = "00" else
      sign_ext when ALUSelB = "10" else
      sign_ext(29 downto 0) & "00" when ALUSelB = "11"; 
      
--- ALU Control (no me gusta mucho este, tendria que cambiarlo)
+-- ALU Control
 alu_control: process(instr(5 downto 0), aluOp)
 begin
-    if aluOp = "00" then 
+    if ((aluOp = "00") or ((aluOp = "10") and (instr(5 downto 0) = "100000"))) then 
         control <= "010";
-    elsif aluOp = "01" then 
+    elsif ((aluOp = "01") or ((aluOp = "10") and (instr(5 downto 0) = "100010"))) then 
         control <= "110";
     elsif ((aluOp = "10") and (instr(5 downto 0) = "100100")) then 
         control <= "000";
@@ -282,16 +279,7 @@ begin
     end if;
 end process;
 
-
-
-
--- Mux de entrada al PC
--- PC_In <= jump_addr when TargetWrite = '1' else 
---         ALU_Result when TargetWrite = '0';
-
-
 -- Parche de conexion banco - memoria
 DataOut <= data2_rd;
-
 
 end Multicycle_MIPS_arch;
